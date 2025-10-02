@@ -167,9 +167,9 @@ export const IntervalTimer = () => {
       <div className="max-w-md mx-auto space-y-6 pt-8">
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent">
-            Interval Timer
+            Interval Timer = Good Times
           </h1>
-          <p className="text-muted-foreground">Build your custom workout timer</p>
+          <p className="text-muted-foreground">Build and run custom interval timers</p>
         </div>
 
         {/* Timer Display */}
