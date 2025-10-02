@@ -343,7 +343,7 @@ export const IntervalTimer = () => {
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div className="text-center space-y-2">
-            <h1 className="text-4xl font-bold" style={{ color: '#ff513a' }}>
+            <h1 className="text-3xl font-bold" style={{ color: '#ff513a' }}>
               Create new Timer
             </h1>
             <p className="text-muted-foreground">Build and run custom interval timers</p>
