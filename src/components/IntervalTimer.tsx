@@ -333,16 +333,16 @@ export const IntervalTimer = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-4 pb-safe">
       <div className="max-w-md mx-auto space-y-6 pt-8">
-        <div className="flex items-center gap-4">
+        <div className="relative">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => navigate("/")}
-            className="shrink-0 -translate-y-[20px]"
+            className="absolute left-0 top-0"
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          <div className="text-center flex-1 space-y-2">
+          <div className="text-center space-y-2">
             <h1 className="text-4xl font-bold" style={{ color: '#ff513a' }}>
               GOOD TIMES
             </h1>
