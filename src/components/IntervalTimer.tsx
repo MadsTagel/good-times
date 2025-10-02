@@ -415,7 +415,7 @@ export const IntervalTimer = () => {
                 onClick={resetTimer}
                 className="rounded-full w-16 h-16 p-0"
               >
-                <RotateCcw className="h-6 w-6" />
+                <RotateCcw className="h-6 w-6" style={{ color: '#1a1a1a' }} />
               </Button>
             </div>
           </div>

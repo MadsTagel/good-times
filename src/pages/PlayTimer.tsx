@@ -201,7 +201,7 @@ const PlayTimer = () => {
                 onClick={resetTimer}
                 className="rounded-full w-20 h-20 p-0"
               >
-                <RotateCcw className="h-7 w-7" />
+                <RotateCcw className="h-7 w-7" style={{ color: '#1a1a1a' }} />
               </Button>
             </div>
           </div>
