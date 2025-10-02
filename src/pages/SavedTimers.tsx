@@ -117,18 +117,18 @@ const SavedTimers = () => {
                     </div>
                   </div>
                   
-                  {/* Intervals Count */}
-                  <div className="text-sm text-muted-foreground">
-                    {timer.intervals.length} intervals
-                  </div>
-                  
-                  {/* Total Duration */}
-                  <div className="text-sm text-muted-foreground">
-                    {formatTotalTime(timer.intervals)} total
+                  {/* Intervals Count and Duration */}
+                  <div className="space-y-1">
+                    <div className="text-sm text-muted-foreground">
+                      {timer.intervals.length} intervals
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {formatTotalTime(timer.intervals)} total
+                    </div>
                   </div>
                   
                   {/* Intervals Chips */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 pt-2">
                     {timer.intervals.map((interval, index) => (
                       <div
                         key={interval.id}
