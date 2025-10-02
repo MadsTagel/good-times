@@ -88,47 +88,55 @@ const SavedTimers = () => {
           <div className="space-y-4">
             {savedTimers.map((timer) => (
               <Card key={timer.id} className="p-6 shadow-md hover:shadow-lg transition-shadow">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 space-y-2">
+                <div className="space-y-3">
+                  {/* Title and Buttons Row */}
+                  <div className="flex items-center justify-between gap-4">
                     <h3 className="text-xl font-semibold">{timer.name}</h3>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <span>{timer.intervals.length} intervals</span>
-                      <span>•</span>
-                      <span>{formatTotalTime(timer.intervals)} total</span>
-                    </div>
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {timer.intervals.map((interval, index) => (
-                        <div
-                          key={interval.id}
-                          className="text-xs bg-muted px-2 py-1 rounded-md font-mono"
-                        >
-                          {index + 1}. {interval.minutes}m {interval.seconds}s
-                        </div>
-                      ))}
+                    <div className="flex gap-2 shrink-0">
+                      <Button
+                        size="icon"
+                        onClick={() => playTimer(timer)}
+                        className="shadow-md"
+                      >
+                        <Play className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => editTimer(timer)}
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="destructive"
+                        onClick={() => deleteTimer(timer.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
                     </div>
                   </div>
-                  <div className="flex gap-2 shrink-0">
-                    <Button
-                      size="icon"
-                      onClick={() => playTimer(timer)}
-                      className="shadow-md"
-                    >
-                      <Play className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      onClick={() => editTimer(timer)}
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      size="icon"
-                      variant="destructive"
-                      onClick={() => deleteTimer(timer.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                  
+                  {/* Intervals Count */}
+                  <div className="text-sm text-muted-foreground">
+                    {timer.intervals.length} intervals
+                  </div>
+                  
+                  {/* Total Duration */}
+                  <div className="text-sm text-muted-foreground">
+                    {formatTotalTime(timer.intervals)} total
+                  </div>
+                  
+                  {/* Intervals Chips */}
+                  <div className="flex flex-wrap gap-2">
+                    {timer.intervals.map((interval, index) => (
+                      <div
+                        key={interval.id}
+                        className="text-xs bg-muted px-2 py-1 rounded-md font-mono"
+                      >
+                        {index + 1}. {interval.minutes}m {interval.seconds}s
+                      </div>
+                    ))}
                   </div>
                 </div>
               </Card>
