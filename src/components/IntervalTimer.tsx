@@ -344,7 +344,7 @@ export const IntervalTimer = () => {
           </Button>
           <div className="text-center space-y-2">
             <h1 className="text-4xl font-bold" style={{ color: '#ff513a' }}>
-              GOOD TIMES
+              Create new Timer
             </h1>
             <p className="text-muted-foreground">Build and run custom interval timers</p>
           </div>
