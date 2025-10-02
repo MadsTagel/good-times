@@ -21,6 +21,7 @@ export const IntervalTimer = () => {
   const [newMinutes, setNewMinutes] = useState("");
   const [newSeconds, setNewSeconds] = useState("");
   const [timerName, setTimerName] = useState("");
+  const [editingTimerId, setEditingTimerId] = useState<string | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
 
   const totalSeconds = intervals.reduce((acc, interval) => 
@@ -47,23 +48,20 @@ export const IntervalTimer = () => {
       const timer = JSON.parse(loadedTimer);
       setIntervals(timer.intervals);
       setTimerName(timer.name);
+      setEditingTimerId(timer.id || null);
       localStorage.removeItem("loadedTimer");
       
-      // Auto-start if coming from "play" button
+      // Auto-start if coming from "play" button - redirect to play page
       if (autoStart === "true") {
         localStorage.removeItem("autoStartTimer");
-        setTimeout(() => {
-          setCurrentIntervalIndex(0);
-          setRemainingSeconds(timer.intervals[0].minutes * 60 + timer.intervals[0].seconds);
-          setIsRunning(true);
-        }, 100);
+        navigate("/play");
       }
     }
     
     return () => {
       audioContextRef.current?.close();
     };
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -216,21 +214,37 @@ export const IntervalTimer = () => {
     }
 
     const savedTimers = JSON.parse(localStorage.getItem("savedTimers") || "[]");
-    const newTimer = {
-      id: Date.now().toString(),
-      name: timerName,
-      intervals,
-      createdAt: new Date().toISOString(),
-    };
+    
+    if (editingTimerId) {
+      // Update existing timer
+      const timerIndex = savedTimers.findIndex((t: any) => t.id === editingTimerId);
+      if (timerIndex !== -1) {
+        savedTimers[timerIndex] = {
+          ...savedTimers[timerIndex],
+          name: timerName,
+          intervals,
+        };
+        toast({
+          title: "Timer updated!",
+          description: `"${timerName}" has been updated.`,
+        });
+      }
+    } else {
+      // Create new timer
+      const newTimer = {
+        id: Date.now().toString(),
+        name: timerName,
+        intervals,
+        createdAt: new Date().toISOString(),
+      };
+      savedTimers.push(newTimer);
+      toast({
+        title: "Timer saved!",
+        description: `"${timerName}" has been saved to your timers.`,
+      });
+    }
 
-    savedTimers.push(newTimer);
     localStorage.setItem("savedTimers", JSON.stringify(savedTimers));
-
-    toast({
-      title: "Timer saved!",
-      description: `"${timerName}" has been saved to your timers.`,
-    });
-
     navigate("/timers");
   };
 

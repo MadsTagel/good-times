@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import CreateTimer from "./pages/CreateTimer";
 import SavedTimers from "./pages/SavedTimers";
+import PlayTimer from "./pages/PlayTimer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<CreateTimer />} />
           <Route path="/timers" element={<SavedTimers />} />
+          <Route path="/play" element={<PlayTimer />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
