@@ -55,17 +55,17 @@ const SavedTimers = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-4 pb-safe">
-      <div className="max-w-2xl mx-auto space-y-6 pt-8">
-        <div className="flex items-center gap-4">
+      <div className="max-w-2xl mx-auto space-y-6 pt-4">
+        <div className="relative">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => navigate("/")}
-            className="shrink-0"
+            className="absolute left-0 top-0"
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          <div className="text-center flex-1">
+          <div className="text-center pt-2">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent">
               My Timers
             </h1>
