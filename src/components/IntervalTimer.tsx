@@ -338,7 +338,7 @@ export const IntervalTimer = () => {
             variant="ghost"
             size="icon"
             onClick={() => navigate("/")}
-            className="shrink-0"
+            className="shrink-0 -translate-y-[20px]"
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
