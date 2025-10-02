@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Play, Pause, RotateCcw, Plus, Trash2, Save, ArrowLeft } from "lucide-react";
+import { Play, Pause, RotateCcw, Plus, Trash2, Save, ArrowLeft, ChevronUp, ChevronDown } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -41,11 +41,23 @@ export const IntervalTimer = () => {
     
     // Check if there's a loaded timer
     const loadedTimer = localStorage.getItem("loadedTimer");
+    const autoStart = localStorage.getItem("autoStartTimer");
+    
     if (loadedTimer) {
       const timer = JSON.parse(loadedTimer);
       setIntervals(timer.intervals);
       setTimerName(timer.name);
       localStorage.removeItem("loadedTimer");
+      
+      // Auto-start if coming from "play" button
+      if (autoStart === "true") {
+        localStorage.removeItem("autoStartTimer");
+        setTimeout(() => {
+          setCurrentIntervalIndex(0);
+          setRemainingSeconds(timer.intervals[0].minutes * 60 + timer.intervals[0].seconds);
+          setIsRunning(true);
+        }, 100);
+      }
     }
     
     return () => {
@@ -133,6 +145,20 @@ export const IntervalTimer = () => {
 
   const removeInterval = (id: string) => {
     setIntervals(intervals.filter((interval) => interval.id !== id));
+  };
+
+  const moveIntervalUp = (index: number) => {
+    if (index === 0) return;
+    const newIntervals = [...intervals];
+    [newIntervals[index - 1], newIntervals[index]] = [newIntervals[index], newIntervals[index - 1]];
+    setIntervals(newIntervals);
+  };
+
+  const moveIntervalDown = (index: number) => {
+    if (index === intervals.length - 1) return;
+    const newIntervals = [...intervals];
+    [newIntervals[index], newIntervals[index + 1]] = [newIntervals[index + 1], newIntervals[index]];
+    setIntervals(newIntervals);
   };
 
   const startTimer = () => {
@@ -364,14 +390,35 @@ export const IntervalTimer = () => {
                       {interval.minutes}m {interval.seconds}s
                     </span>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => removeInterval(interval.id)}
-                    disabled={isRunning}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  <div className="flex gap-1">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => moveIntervalUp(index)}
+                      disabled={isRunning || index === 0}
+                      className="h-8 w-8"
+                    >
+                      <ChevronUp className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => moveIntervalDown(index)}
+                      disabled={isRunning || index === intervals.length - 1}
+                      className="h-8 w-8"
+                    >
+                      <ChevronDown className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removeInterval(interval.id)}
+                      disabled={isRunning}
+                      className="h-8 w-8"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>

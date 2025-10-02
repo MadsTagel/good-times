@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { Clock, Trash2, Play, ArrowLeft } from "lucide-react";
+import { Clock, Trash2, Play, ArrowLeft, Pencil } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface SavedTimer {
@@ -33,9 +33,16 @@ const SavedTimers = () => {
     });
   };
 
-  const loadTimer = (timer: SavedTimer) => {
+  const loadTimer = (timer: SavedTimer, autoStart: boolean = false) => {
     localStorage.setItem("loadedTimer", JSON.stringify(timer));
+    if (autoStart) {
+      localStorage.setItem("autoStartTimer", "true");
+    }
     navigate("/create");
+  };
+
+  const editTimer = (timer: SavedTimer) => {
+    loadTimer(timer, false);
   };
 
   const formatTotalTime = (intervals: SavedTimer["intervals"]) => {
@@ -105,10 +112,17 @@ const SavedTimers = () => {
                   <div className="flex gap-2 shrink-0">
                     <Button
                       size="icon"
-                      onClick={() => loadTimer(timer)}
+                      onClick={() => loadTimer(timer, true)}
                       className="shadow-md"
                     >
                       <Play className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      onClick={() => editTimer(timer)}
+                    >
+                      <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
                       size="icon"
