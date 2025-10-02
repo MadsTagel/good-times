@@ -33,16 +33,14 @@ const SavedTimers = () => {
     });
   };
 
-  const loadTimer = (timer: SavedTimer, autoStart: boolean = false) => {
-    localStorage.setItem("loadedTimer", JSON.stringify(timer));
-    if (autoStart) {
-      localStorage.setItem("autoStartTimer", "true");
-    }
-    navigate("/create");
+  const playTimer = (timer: SavedTimer) => {
+    localStorage.setItem("playTimer", JSON.stringify(timer));
+    navigate("/play");
   };
 
   const editTimer = (timer: SavedTimer) => {
-    loadTimer(timer, false);
+    localStorage.setItem("loadedTimer", JSON.stringify(timer));
+    navigate("/create");
   };
 
   const formatTotalTime = (intervals: SavedTimer["intervals"]) => {
@@ -112,7 +110,7 @@ const SavedTimers = () => {
                   <div className="flex gap-2 shrink-0">
                     <Button
                       size="icon"
-                      onClick={() => loadTimer(timer, true)}
+                      onClick={() => playTimer(timer)}
                       className="shadow-md"
                     >
                       <Play className="h-4 w-4" />

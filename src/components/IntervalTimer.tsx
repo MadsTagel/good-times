@@ -40,28 +40,20 @@ export const IntervalTimer = () => {
   useEffect(() => {
     audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     
-    // Check if there's a loaded timer
+    // Check if there's a loaded timer for editing
     const loadedTimer = localStorage.getItem("loadedTimer");
-    const autoStart = localStorage.getItem("autoStartTimer");
-    
     if (loadedTimer) {
       const timer = JSON.parse(loadedTimer);
       setIntervals(timer.intervals);
       setTimerName(timer.name);
       setEditingTimerId(timer.id || null);
       localStorage.removeItem("loadedTimer");
-      
-      // Auto-start if coming from "play" button - redirect to play page
-      if (autoStart === "true") {
-        localStorage.removeItem("autoStartTimer");
-        navigate("/play");
-      }
     }
     
     return () => {
       audioContextRef.current?.close();
     };
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;

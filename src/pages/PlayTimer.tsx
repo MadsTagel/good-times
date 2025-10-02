@@ -23,14 +23,14 @@ const PlayTimer = () => {
   useEffect(() => {
     audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     
-    const loadedTimer = localStorage.getItem("loadedTimer");
-    if (loadedTimer) {
-      const timer = JSON.parse(loadedTimer);
+    const playTimer = localStorage.getItem("playTimer");
+    if (playTimer) {
+      const timer = JSON.parse(playTimer);
       setIntervals(timer.intervals);
       setTimerName(timer.name);
       setCurrentIntervalIndex(0);
       setRemainingSeconds(timer.intervals[0].minutes * 60 + timer.intervals[0].seconds);
-      localStorage.removeItem("loadedTimer");
+      localStorage.removeItem("playTimer");
       
       // Auto-start
       setTimeout(() => setIsRunning(true), 100);
