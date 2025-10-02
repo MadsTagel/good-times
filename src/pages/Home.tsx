@@ -6,8 +6,8 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-start justify-center pt-[30px] px-4">
-      <div className="max-w-2xl w-full text-center space-y-12">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex flex-col justify-between pt-[30px] pb-[30px] px-4">
+      <div className="max-w-2xl w-full mx-auto text-center">
         <div className="space-y-4">
           <h1 className="text-7xl md:text-8xl font-bold bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent">
             GOOD TIMES
@@ -17,7 +17,9 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-lg mx-auto">
+      </div>
+      
+      <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-lg mx-auto">
           <Button
             size="lg"
             onClick={() => navigate("/create")}
@@ -35,7 +37,6 @@ const Home = () => {
             <Clock className="mr-2 h-6 w-6" />
             My Timers
           </Button>
-        </div>
       </div>
     </div>
   );
