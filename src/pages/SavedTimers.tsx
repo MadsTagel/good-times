@@ -66,7 +66,7 @@ const SavedTimers = () => {
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div className="text-center pt-2">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold" style={{ color: '#ff513a' }}>
               My Timers
             </h1>
             <p className="text-muted-foreground mt-1">Your saved interval timers</p>
