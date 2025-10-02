@@ -105,7 +105,7 @@ const SavedTimers = () => {
                         variant="outline"
                         onClick={() => editTimer(timer)}
                       >
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="h-4 w-4" style={{ color: '#1a1a1a' }} />
                       </Button>
                       <Button
                         size="icon"
