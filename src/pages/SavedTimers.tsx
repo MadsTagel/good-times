@@ -61,7 +61,7 @@ const SavedTimers = () => {
             variant="ghost"
             size="icon"
             onClick={() => navigate("/")}
-            className="absolute left-0 top-0"
+            className="absolute left-0 -top-5"
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
