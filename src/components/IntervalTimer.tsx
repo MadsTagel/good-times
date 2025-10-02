@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Play, Pause, RotateCcw, Plus, Trash2 } from "lucide-react";
+import { Play, Pause, RotateCcw, Plus, Trash2, Save, ArrowLeft } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface Interval {
   id: string;
@@ -12,12 +13,14 @@ interface Interval {
 }
 
 export const IntervalTimer = () => {
+  const navigate = useNavigate();
   const [intervals, setIntervals] = useState<Interval[]>([]);
   const [currentIntervalIndex, setCurrentIntervalIndex] = useState(0);
   const [remainingSeconds, setRemainingSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [newMinutes, setNewMinutes] = useState("");
   const [newSeconds, setNewSeconds] = useState("");
+  const [timerName, setTimerName] = useState("");
   const audioContextRef = useRef<AudioContext | null>(null);
 
   const totalSeconds = intervals.reduce((acc, interval) => 
@@ -35,6 +38,16 @@ export const IntervalTimer = () => {
 
   useEffect(() => {
     audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    
+    // Check if there's a loaded timer
+    const loadedTimer = localStorage.getItem("loadedTimer");
+    if (loadedTimer) {
+      const timer = JSON.parse(loadedTimer);
+      setIntervals(timer.intervals);
+      setTimerName(timer.name);
+      localStorage.removeItem("loadedTimer");
+    }
+    
     return () => {
       audioContextRef.current?.close();
     };
@@ -157,6 +170,44 @@ export const IntervalTimer = () => {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
+  const saveTimer = () => {
+    if (intervals.length === 0) {
+      toast({
+        title: "No intervals",
+        description: "Add at least one interval before saving.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!timerName.trim()) {
+      toast({
+        title: "Name required",
+        description: "Please enter a name for your timer.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const savedTimers = JSON.parse(localStorage.getItem("savedTimers") || "[]");
+    const newTimer = {
+      id: Date.now().toString(),
+      name: timerName,
+      intervals,
+      createdAt: new Date().toISOString(),
+    };
+
+    savedTimers.push(newTimer);
+    localStorage.setItem("savedTimers", JSON.stringify(savedTimers));
+
+    toast({
+      title: "Timer saved!",
+      description: `"${timerName}" has been saved to your timers.`,
+    });
+
+    navigate("/timers");
+  };
+
   const progress = intervals.length > 0 && remainingSeconds > 0
     ? ((intervals[currentIntervalIndex].minutes * 60 + intervals[currentIntervalIndex].seconds - remainingSeconds) /
         (intervals[currentIntervalIndex].minutes * 60 + intervals[currentIntervalIndex].seconds)) * 100
@@ -165,11 +216,21 @@ export const IntervalTimer = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-4 pb-safe">
       <div className="max-w-md mx-auto space-y-6 pt-8">
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent">
-            GOOD TIMES
-          </h1>
-          <p className="text-muted-foreground">Build and run custom interval timers</p>
+        <div className="flex items-center gap-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate("/")}
+            className="shrink-0"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <div className="text-center flex-1 space-y-2">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent">
+              GOOD TIMES
+            </h1>
+            <p className="text-muted-foreground">Build and run custom interval timers</p>
+          </div>
         </div>
 
         {/* Timer Display */}
@@ -243,6 +304,17 @@ export const IntervalTimer = () => {
           </div>
         </Card>
 
+        {/* Timer Name */}
+        <Card className="p-6 shadow-md">
+          <h3 className="font-semibold mb-4">Timer Name</h3>
+          <Input
+            type="text"
+            placeholder="e.g., Morning Workout"
+            value={timerName}
+            onChange={(e) => setTimerName(e.target.value)}
+          />
+        </Card>
+
         {/* Add Interval */}
         <Card className="p-6 shadow-md">
           <h3 className="font-semibold mb-4">Add Interval</h3>
@@ -309,6 +381,18 @@ export const IntervalTimer = () => {
               </div>
             )}
           </Card>
+        )}
+
+        {/* Save Timer Button */}
+        {intervals.length > 0 && (
+          <Button
+            onClick={saveTimer}
+            size="lg"
+            className="w-full shadow-lg"
+          >
+            <Save className="mr-2 h-5 w-5" />
+            Save Timer
+          </Button>
         )}
       </div>
     </div>
