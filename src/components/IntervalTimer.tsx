@@ -2,15 +2,95 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Play, Pause, RotateCcw, Plus, Trash2, Save, ArrowLeft, ChevronUp, ChevronDown } from "lucide-react";
+import { Play, Pause, RotateCcw, Plus, Trash2, Save, ArrowLeft, GripVertical } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface Interval {
   id: string;
   minutes: number;
   seconds: number;
 }
+
+interface SortableIntervalProps {
+  interval: Interval;
+  index: number;
+  isActive: boolean;
+  isRunning: boolean;
+  onRemove: (id: string) => void;
+}
+
+
+const SortableInterval = ({ interval, index, isActive, isRunning, onRemove }: SortableIntervalProps) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: interval.id, disabled: isRunning });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+        isActive
+          ? "bg-primary/10 border-2 border-primary/30"
+          : "bg-secondary"
+      }`}
+    >
+      <div className="flex items-center gap-3 flex-1">
+        <div
+          {...attributes}
+          {...listeners}
+          className={`${isRunning ? 'cursor-not-allowed opacity-50' : 'cursor-grab active:cursor-grabbing'}`}
+        >
+          <GripVertical className="h-5 w-5 text-muted-foreground" />
+        </div>
+        <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-semibold">
+          {index + 1}
+        </div>
+        <span className="font-mono text-lg">
+          {interval.minutes}m {interval.seconds}s
+        </span>
+      </div>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => onRemove(interval.id)}
+        disabled={isRunning}
+        className="h-8 w-8"
+      >
+        <Trash2 className="h-4 w-4" />
+      </Button>
+    </div>
+  );
+};
 
 export const IntervalTimer = () => {
   const navigate = useNavigate();
@@ -23,6 +103,13 @@ export const IntervalTimer = () => {
   const [timerName, setTimerName] = useState("");
   const [editingTimerId, setEditingTimerId] = useState<string | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const totalSeconds = intervals.reduce((acc, interval) => 
     acc + interval.minutes * 60 + interval.seconds, 0
@@ -137,18 +224,16 @@ export const IntervalTimer = () => {
     setIntervals(intervals.filter((interval) => interval.id !== id));
   };
 
-  const moveIntervalUp = (index: number) => {
-    if (index === 0) return;
-    const newIntervals = [...intervals];
-    [newIntervals[index - 1], newIntervals[index]] = [newIntervals[index], newIntervals[index - 1]];
-    setIntervals(newIntervals);
-  };
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
 
-  const moveIntervalDown = (index: number) => {
-    if (index === intervals.length - 1) return;
-    const newIntervals = [...intervals];
-    [newIntervals[index], newIntervals[index + 1]] = [newIntervals[index + 1], newIntervals[index]];
-    setIntervals(newIntervals);
+    if (over && active.id !== over.id) {
+      setIntervals((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
   };
 
   const startTimer = () => {
@@ -378,56 +463,29 @@ export const IntervalTimer = () => {
         {intervals.length > 0 && (
           <Card className="p-6 shadow-md">
             <h3 className="font-semibold mb-4">Intervals ({intervals.length})</h3>
-            <div className="space-y-2">
-              {intervals.map((interval, index) => (
-                <div
-                  key={interval.id}
-                  className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                    index === currentIntervalIndex && isRunning
-                      ? "bg-primary/10 border-2 border-primary/30"
-                      : "bg-secondary"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-semibold">
-                      {index + 1}
-                    </div>
-                    <span className="font-mono text-lg">
-                      {interval.minutes}m {interval.seconds}s
-                    </span>
-                  </div>
-                  <div className="flex gap-1">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => moveIntervalUp(index)}
-                      disabled={isRunning || index === 0}
-                      className="h-8 w-8"
-                    >
-                      <ChevronUp className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => moveIntervalDown(index)}
-                      disabled={isRunning || index === intervals.length - 1}
-                      className="h-8 w-8"
-                    >
-                      <ChevronDown className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => removeInterval(interval.id)}
-                      disabled={isRunning}
-                      className="h-8 w-8"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={intervals.map(i => i.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-2">
+                  {intervals.map((interval, index) => (
+                    <SortableInterval
+                      key={interval.id}
+                      interval={interval}
+                      index={index}
+                      isActive={index === currentIntervalIndex && isRunning}
+                      isRunning={isRunning}
+                      onRemove={removeInterval}
+                    />
+                  ))}
                 </div>
-              ))}
-            </div>
+              </SortableContext>
+            </DndContext>
             {totalSeconds > 0 && (
               <div className="mt-4 pt-4 border-t text-sm text-muted-foreground">
                 Total duration: {formatTime(totalSeconds)}
