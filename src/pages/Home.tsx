@@ -12,7 +12,7 @@ const Home = () => {
           <h1 className="text-4xl md:text-4xl font-bold" style={{ color: "#ff513a" }}>
             GOOD TIMES
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground">Build and run custom interval timers</p>
+          <p className=" md:text-2xl text-muted-foreground">Build and run custom interval timers</p>
         </div>
       </div>
 
