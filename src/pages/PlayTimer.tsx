@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { Play, Pause, RotateCcw, X } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface Interval {
@@ -110,132 +108,60 @@ const PlayTimer = () => {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const totalRemainingSeconds = intervals
-    .slice(currentIntervalIndex)
-    .reduce((acc, interval, index) => {
-      if (index === 0) return acc + remainingSeconds;
-      return acc + interval.minutes * 60 + interval.seconds;
-    }, 0);
+  const getNextInterval = () => {
+    if (currentIntervalIndex < intervals.length - 1) {
+      const nextInterval = intervals[currentIntervalIndex + 1];
+      const nextTime = formatTime(nextInterval.minutes * 60 + nextInterval.seconds);
+      const intervalType = (currentIntervalIndex + 1) % 2 === 0 ? "REST" : "ROUND";
+      return `${intervalType} ${nextTime}`;
+    }
+    return null;
+  };
 
-  const progress = intervals.length > 0 && remainingSeconds > 0
-    ? ((intervals[currentIntervalIndex].minutes * 60 + intervals[currentIntervalIndex].seconds - remainingSeconds) /
-        (intervals[currentIntervalIndex].minutes * 60 + intervals[currentIntervalIndex].seconds)) * 100
-    : 0;
+  const getCurrentIntervalType = () => {
+    return currentIntervalIndex % 2 === 0 ? "ROUND" : "REST";
+  };
+
+  const getButtonColor = () => {
+    return currentIntervalIndex % 2 === 0 ? "bg-[#7FFF00]" : "bg-[#00FFFF]";
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-4 pb-safe flex items-center justify-center">
-      <div className="max-w-2xl w-full space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">{timerName}</h2>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate("/timers")}
-          >
-            <X className="h-5 w-5" />
-          </Button>
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Top Section - Next Interval */}
+      <div className="p-6">
+        {getNextInterval() && (
+          <p className="text-sm text-gray-500 uppercase tracking-wide">
+            {getNextInterval()}
+          </p>
+        )}
+      </div>
+
+      {/* Middle Section - Main Timer Display */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6">
+        <div className="text-center space-y-2">
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-black text-xl">▶</span>
+            <p className="text-xl text-black uppercase tracking-wide">
+              {getCurrentIntervalType()} {currentIntervalIndex + 1}/{intervals.length}
+            </p>
+          </div>
+          <div className="text-[10rem] leading-none font-bold tabular-nums text-black">
+            {formatTime(remainingSeconds)}
+          </div>
         </div>
+      </div>
 
-        {/* Timer Display */}
-        <Card className="p-12 shadow-lg border-2 bg-gradient-to-br from-card to-card/80">
-          <div className="text-center space-y-6">
-            <div className="relative inline-flex items-center justify-center">
-              <svg className="w-64 h-64 transform -rotate-90">
-                <circle
-                  cx="128"
-                  cy="128"
-                  r="120"
-                  stroke="hsl(var(--border))"
-                  strokeWidth="12"
-                  fill="none"
-                />
-                <circle
-                  cx="128"
-                  cy="128"
-                  r="120"
-                  stroke="url(#gradient)"
-                  strokeWidth="12"
-                  fill="none"
-                  strokeDasharray={`${2 * Math.PI * 120}`}
-                  strokeDashoffset={`${2 * Math.PI * 120 * (1 - progress / 100)}`}
-                  className="transition-all duration-1000"
-                  strokeLinecap="round"
-                />
-                <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="hsl(var(--primary))" />
-                    <stop offset="100%" stopColor="hsl(var(--accent))" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-7xl font-bold tabular-nums">
-                  {formatTime(remainingSeconds)}
-                </div>
-                {intervals.length > 0 && (
-                  <div className="text-lg text-muted-foreground mt-3">
-                    Interval {currentIntervalIndex + 1} of {intervals.length}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {totalRemainingSeconds > 0 && (
-              <div className="text-base text-muted-foreground">
-                Total remaining: {formatTime(totalRemainingSeconds)}
-              </div>
-            )}
-
-            {/* Controls */}
-            <div className="flex gap-4 justify-center pt-6">
-              <Button
-                size="lg"
-                onClick={isRunning ? pauseTimer : resumeTimer}
-                className="rounded-full w-20 h-20 p-0 shadow-lg text-lg"
-              >
-                {isRunning ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8 ml-1" />}
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={resetTimer}
-                className="rounded-full w-20 h-20 p-0"
-              >
-                <RotateCcw className="h-7 w-7" style={{ color: '#1a1a1a' }} />
-              </Button>
-            </div>
-          </div>
-        </Card>
-
-        {/* Intervals List */}
-        <Card className="p-6 shadow-md">
-          <h3 className="font-semibold mb-4 text-lg">Intervals</h3>
-          <div className="space-y-2">
-            {intervals.map((interval, index) => (
-              <div
-                key={interval.id}
-                className={`flex items-center gap-3 p-4 rounded-lg transition-all ${
-                  index === currentIntervalIndex
-                    ? "bg-primary/20 border-2 border-primary scale-105"
-                    : index < currentIntervalIndex
-                    ? "bg-muted/50 opacity-50"
-                    : "bg-secondary"
-                }`}
-              >
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-base font-semibold ${
-                  index === currentIntervalIndex
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground"
-                }`}>
-                  {index + 1}
-                </div>
-                <span className="font-mono text-xl">
-                  {interval.minutes}m {interval.seconds}s
-                </span>
-              </div>
-            ))}
-          </div>
-        </Card>
+      {/* Bottom Section - Large Control Button */}
+      <div
+        className={`h-[45vh] w-full flex items-center justify-center cursor-pointer transition-colors duration-300 ${getButtonColor()}`}
+        onClick={isRunning ? pauseTimer : resumeTimer}
+      >
+        {isRunning ? (
+          <Pause className="w-20 h-20 text-black" fill="black" />
+        ) : (
+          <Play className="w-20 h-20 text-black ml-2" fill="black" />
+        )}
       </div>
     </div>
   );
