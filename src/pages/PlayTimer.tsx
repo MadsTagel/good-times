@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, X } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface Interval {
@@ -129,12 +129,20 @@ const PlayTimer = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Top Section - Next Interval */}
-      <div className="p-6">
-        {getNextInterval() && (
-          <p className="text-sm text-gray-500 uppercase tracking-wide">
-            {getNextInterval()}
-          </p>
-        )}
+      <div className="p-6 flex items-start justify-between">
+        <div>
+          {getNextInterval() && (
+            <p className="text-sm text-gray-500 uppercase tracking-wide">
+              {getNextInterval()}
+            </p>
+          )}
+        </div>
+        <button
+          onClick={() => navigate("/timers")}
+          className="text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
       </div>
 
       {/* Middle Section - Main Timer Display */}
