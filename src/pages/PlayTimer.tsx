@@ -123,23 +123,23 @@ const PlayTimer = () => {
   };
 
   const getButtonColor = () => {
-    return currentIntervalIndex % 2 === 0 ? "bg-[#7FFF00]" : "bg-[#00FFFF]";
+    return currentIntervalIndex % 2 === 0 ? "bg-[#4ade80]" : "bg-[#c084fc]";
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Top Section - Next Interval */}
       <div className="p-6 flex items-start justify-between">
         <div>
           {getNextInterval() && (
-            <p className="text-sm text-gray-500 uppercase tracking-wide">
+            <p className="text-sm text-muted-foreground uppercase tracking-wide">
               {getNextInterval()}
             </p>
           )}
         </div>
         <button
           onClick={() => navigate("/timers")}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          className="text-muted-foreground hover:text-foreground transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
@@ -149,12 +149,12 @@ const PlayTimer = () => {
       <div className="flex-1 flex flex-col items-center justify-center px-6">
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-2">
-            <span className="text-black text-xl">▶</span>
-            <p className="text-xl text-black uppercase tracking-wide">
+            <span className="text-foreground text-xl">▶</span>
+            <p className="text-xl text-foreground uppercase tracking-wide">
               {getCurrentIntervalType()} {currentIntervalIndex + 1}/{intervals.length}
             </p>
           </div>
-          <div className="text-[10rem] leading-none font-bold tabular-nums text-black">
+          <div className="text-[10rem] leading-none font-bold tabular-nums text-foreground">
             {formatTime(remainingSeconds)}
           </div>
         </div>

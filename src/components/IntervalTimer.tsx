@@ -343,7 +343,7 @@ export const IntervalTimer = () => {
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div className="text-center space-y-2">
-            <h1 className="text-3xl font-bold" style={{ color: '#ff513a' }}>
+            <h1 className="text-3xl font-bold" style={{ color: "hsl(var(--primary))" }}>
               Create new Timer
             </h1>
             <p className="text-muted-foreground">Build and run custom interval timers</p>
@@ -415,7 +415,7 @@ export const IntervalTimer = () => {
                 onClick={resetTimer}
                 className="rounded-full w-16 h-16 p-0"
               >
-                <RotateCcw className="h-6 w-6" style={{ color: '#1a1a1a' }} />
+                <RotateCcw className="h-6 w-6" />
               </Button>
             </div>
           </div>
