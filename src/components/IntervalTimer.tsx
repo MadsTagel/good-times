@@ -104,6 +104,8 @@ export const IntervalTimer = () => {
     return acc + interval.minutes * 60 + interval.seconds;
   }, 0);
 
+  const displaySeconds = isRunning || remainingSeconds > 0 ? totalRemainingSeconds : totalSeconds;
+
   useEffect(() => {
     audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     const loadedTimer = localStorage.getItem("loadedTimer");
@@ -279,9 +281,9 @@ export const IntervalTimer = () => {
             </div>
           </div>
 
-          {totalRemainingSeconds > 0 && (
+          {displaySeconds > 0 && (
             <p className="text-sm text-muted-foreground mb-4">
-              Total remaining: {formatTime(totalRemainingSeconds)}
+              Total: {formatTime(displaySeconds)}
             </p>
           )}
 
