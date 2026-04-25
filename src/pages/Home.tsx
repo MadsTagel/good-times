@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Plus, Clock } from "lucide-react";
 
@@ -6,34 +5,27 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex flex-col justify-between pt-[30px] pb-[30px] px-4">
-      <div className="max-w-2xl w-full mx-auto text-center">
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold" style={{ color: "#ff513a" }}>
-            GOOD TIMES
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground">Build and run custom interval timers</p>
-        </div>
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 gap-10">
+      <div className="text-center">
+        <h1 className="text-6xl font-black tracking-tight mb-3">GOOD TIMES</h1>
+        <p className="text-muted-foreground text-lg">Build and run custom interval timers</p>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-lg mx-auto">
-        <Button
-          size="lg"
+      <div className="w-full max-w-sm space-y-4">
+        <button
           onClick={() => navigate("/create")}
-          className="w-full sm:w-auto text-lg h-16 px-8 shadow-lg hover:shadow-xl transition-all"
+          className="w-full h-14 rounded-full bg-white text-gray-900 font-bold text-lg flex items-center justify-center gap-2 hover:bg-white/90 transition-colors"
         >
-          <Plus className="mr-2 h-6 w-6" />
+          <Plus className="w-5 h-5" />
           Create New Timer
-        </Button>
-        <Button
-          size="lg"
-          variant="outline"
+        </button>
+        <button
           onClick={() => navigate("/timers")}
-          className="w-full sm:w-auto text-lg h-16 px-8 border-2"
+          className="w-full h-14 rounded-full border-2 border-white/25 text-white font-bold text-lg flex items-center justify-center gap-2 hover:border-white/40 transition-colors"
         >
-          <Clock className="mr-2 h-6 w-6" />
+          <Clock className="w-5 h-5" />
           My Timers
-        </Button>
+        </button>
       </div>
     </div>
   );

@@ -1,7 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
 import { Play, Pause, RotateCcw, Plus, Trash2, Save, ArrowLeft, GripVertical } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -37,16 +34,11 @@ interface SortableIntervalProps {
   onRemove: (id: string) => void;
 }
 
-
 const SortableInterval = ({ interval, index, isActive, isRunning, onRemove }: SortableIntervalProps) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: interval.id, disabled: isRunning });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: interval.id,
+    disabled: isRunning,
+  });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -58,36 +50,32 @@ const SortableInterval = ({ interval, index, isActive, isRunning, onRemove }: So
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-        isActive
-          ? "bg-primary/10 border-2 border-primary/30"
-          : "bg-secondary"
+      className={`flex items-center justify-between px-4 py-3 rounded-2xl transition-colors ${
+        isActive ? "bg-primary/15 border border-primary/30" : "bg-muted"
       }`}
     >
       <div className="flex items-center gap-3 flex-1">
         <div
           {...attributes}
           {...listeners}
-          className={`${isRunning ? 'cursor-not-allowed opacity-50' : 'cursor-grab active:cursor-grabbing'}`}
+          className={isRunning ? "cursor-not-allowed opacity-40" : "cursor-grab active:cursor-grabbing"}
         >
-          <GripVertical className="h-5 w-5 text-muted-foreground" />
+          <GripVertical className="w-4 h-4 text-muted-foreground" />
         </div>
-        <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-semibold">
+        <div className="w-7 h-7 rounded-full bg-primary text-background flex items-center justify-center text-xs font-bold">
           {index + 1}
         </div>
-        <span className="font-mono text-lg">
-          {interval.minutes}m {interval.seconds}s
+        <span className="font-mono text-base">
+          {String(interval.minutes).padStart(2, "0")}:{String(interval.seconds).padStart(2, "0")}
         </span>
       </div>
-      <Button
-        variant="ghost"
-        size="icon"
+      <button
         onClick={() => onRemove(interval.id)}
         disabled={isRunning}
-        className="h-8 w-8"
+        className="w-8 h-8 rounded-full hover:bg-destructive/20 flex items-center justify-center transition-colors disabled:opacity-40"
       >
-        <Trash2 className="h-4 w-4" />
-      </Button>
+        <Trash2 className="w-4 h-4 text-destructive" />
+      </button>
     </div>
   );
 };
@@ -106,28 +94,20 @@ export const IntervalTimer = () => {
 
   const sensors = useSensors(
     useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
-  const totalSeconds = intervals.reduce((acc, interval) => 
-    acc + interval.minutes * 60 + interval.seconds, 0
-  );
+  const totalSeconds = intervals.reduce((acc, i) => acc + i.minutes * 60 + i.seconds, 0);
 
-  const totalRemainingSeconds = intervals
-    .slice(currentIntervalIndex)
-    .reduce((acc, interval, index) => {
-      if (index === 0) {
-        return acc + remainingSeconds;
-      }
-      return acc + interval.minutes * 60 + interval.seconds;
-    }, 0);
+  const totalRemainingSeconds = intervals.slice(currentIntervalIndex).reduce((acc, interval, index) => {
+    if (index === 0) return acc + remainingSeconds;
+    return acc + interval.minutes * 60 + interval.seconds;
+  }, 0);
+
+  const displaySeconds = isRunning || remainingSeconds > 0 ? totalRemainingSeconds : totalSeconds;
 
   useEffect(() => {
     audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-    
-    // Check if there's a loaded timer for editing
     const loadedTimer = localStorage.getItem("loadedTimer");
     if (loadedTimer) {
       const timer = JSON.parse(loadedTimer);
@@ -136,62 +116,43 @@ export const IntervalTimer = () => {
       setEditingTimerId(timer.id || null);
       localStorage.removeItem("loadedTimer");
     }
-    
-    return () => {
-      audioContextRef.current?.close();
-    };
+    return () => { audioContextRef.current?.close(); };
   }, []);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    
     if (isRunning && remainingSeconds > 0) {
-      timer = setInterval(() => {
-        setRemainingSeconds((prev) => prev - 1);
-      }, 1000);
+      timer = setInterval(() => setRemainingSeconds((prev) => prev - 1), 1000);
     } else if (isRunning && remainingSeconds === 0 && currentIntervalIndex < intervals.length) {
-      // Interval completed
       playBeep(1);
-      
       if (currentIntervalIndex < intervals.length - 1) {
-        // Move to next interval
         setCurrentIntervalIndex((prev) => prev + 1);
-        const nextInterval = intervals[currentIntervalIndex + 1];
-        setRemainingSeconds(nextInterval.minutes * 60 + nextInterval.seconds);
+        const next = intervals[currentIntervalIndex + 1];
+        setRemainingSeconds(next.minutes * 60 + next.seconds);
       } else {
-        // All intervals completed
         setIsRunning(false);
         playBeep(3);
-        toast({
-          title: "Timer Complete!",
-          description: "All intervals finished.",
-        });
+        toast({ title: "Timer Complete!", description: "All intervals finished." });
       }
     }
-
     return () => clearInterval(timer);
   }, [isRunning, remainingSeconds, currentIntervalIndex, intervals]);
 
   const playBeep = (count: number) => {
     const ctx = audioContextRef.current;
     if (!ctx) return;
-
     for (let i = 0; i < count; i++) {
       setTimeout(() => {
-        const oscillator = ctx.createOscillator();
-        const gainNode = ctx.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(ctx.destination);
-        
-        oscillator.frequency.value = 800;
-        oscillator.type = "sine";
-        
-        gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
-        
-        oscillator.start(ctx.currentTime);
-        oscillator.stop(ctx.currentTime + 0.2);
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.value = 800;
+        osc.type = "sine";
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.2);
       }, i * 300);
     }
   };
@@ -199,38 +160,23 @@ export const IntervalTimer = () => {
   const addInterval = () => {
     const mins = parseInt(newMinutes) || 0;
     const secs = parseInt(newSeconds) || 0;
-    
     if (mins === 0 && secs === 0) {
-      toast({
-        title: "Invalid interval",
-        description: "Please enter a valid time.",
-        variant: "destructive",
-      });
+      toast({ title: "Invalid interval", description: "Please enter a valid time.", variant: "destructive" });
       return;
     }
-
-    const newInterval: Interval = {
-      id: Date.now().toString(),
-      minutes: mins,
-      seconds: secs,
-    };
-
-    setIntervals([...intervals, newInterval]);
+    setIntervals([...intervals, { id: Date.now().toString(), minutes: mins, seconds: secs }]);
     setNewMinutes("");
     setNewSeconds("");
   };
 
-  const removeInterval = (id: string) => {
-    setIntervals(intervals.filter((interval) => interval.id !== id));
-  };
+  const removeInterval = (id: string) => setIntervals(intervals.filter((i) => i.id !== id));
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-
     if (over && active.id !== over.id) {
       setIntervals((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over.id);
+        const oldIndex = items.findIndex((i) => i.id === active.id);
+        const newIndex = items.findIndex((i) => i.id === over.id);
         return arrayMove(items, oldIndex, newIndex);
       });
     }
@@ -238,25 +184,14 @@ export const IntervalTimer = () => {
 
   const startTimer = () => {
     if (intervals.length === 0) {
-      toast({
-        title: "No intervals",
-        description: "Please add at least one interval.",
-        variant: "destructive",
-      });
+      toast({ title: "No intervals", description: "Please add at least one interval.", variant: "destructive" });
       return;
     }
-
     if (remainingSeconds === 0 && !isRunning) {
-      // Starting fresh
       setCurrentIntervalIndex(0);
       setRemainingSeconds(intervals[0].minutes * 60 + intervals[0].seconds);
     }
-    
     setIsRunning(true);
-  };
-
-  const pauseTimer = () => {
-    setIsRunning(false);
   };
 
   const resetTimer = () => {
@@ -266,212 +201,163 @@ export const IntervalTimer = () => {
   };
 
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   };
 
   const saveTimer = () => {
     if (intervals.length === 0) {
-      toast({
-        title: "No intervals",
-        description: "Add at least one interval before saving.",
-        variant: "destructive",
-      });
+      toast({ title: "No intervals", description: "Add at least one interval before saving.", variant: "destructive" });
       return;
     }
-
     if (!timerName.trim()) {
-      toast({
-        title: "Name required",
-        description: "Please enter a name for your timer.",
-        variant: "destructive",
-      });
+      toast({ title: "Name required", description: "Please enter a name for your timer.", variant: "destructive" });
       return;
     }
-
-    const savedTimers = JSON.parse(localStorage.getItem("savedTimers") || "[]");
-    
+    const saved = JSON.parse(localStorage.getItem("savedTimers") || "[]");
     if (editingTimerId) {
-      // Update existing timer
-      const timerIndex = savedTimers.findIndex((t: any) => t.id === editingTimerId);
-      if (timerIndex !== -1) {
-        savedTimers[timerIndex] = {
-          ...savedTimers[timerIndex],
-          name: timerName,
-          intervals,
-        };
-        toast({
-          title: "Timer updated!",
-          description: `"${timerName}" has been updated.`,
-        });
+      const idx = saved.findIndex((t: any) => t.id === editingTimerId);
+      if (idx !== -1) {
+        saved[idx] = { ...saved[idx], name: timerName, intervals };
+        toast({ title: "Timer updated!", description: `"${timerName}" has been updated.` });
       }
     } else {
-      // Create new timer
-      const newTimer = {
-        id: Date.now().toString(),
-        name: timerName,
-        intervals,
-        createdAt: new Date().toISOString(),
-      };
-      savedTimers.push(newTimer);
-      toast({
-        title: "Timer saved!",
-        description: `"${timerName}" has been saved to your timers.`,
-      });
+      saved.push({ id: Date.now().toString(), name: timerName, intervals, createdAt: new Date().toISOString() });
+      toast({ title: "Timer saved!", description: `"${timerName}" has been saved.` });
     }
-
-    localStorage.setItem("savedTimers", JSON.stringify(savedTimers));
+    localStorage.setItem("savedTimers", JSON.stringify(saved));
     navigate("/timers");
   };
 
-  const progress = intervals.length > 0 && remainingSeconds > 0
-    ? ((intervals[currentIntervalIndex].minutes * 60 + intervals[currentIntervalIndex].seconds - remainingSeconds) /
-        (intervals[currentIntervalIndex].minutes * 60 + intervals[currentIntervalIndex].seconds)) * 100
-    : 0;
+  const progress =
+    intervals.length > 0 && remainingSeconds > 0
+      ? ((intervals[currentIntervalIndex].minutes * 60 + intervals[currentIntervalIndex].seconds - remainingSeconds) /
+          (intervals[currentIntervalIndex].minutes * 60 + intervals[currentIntervalIndex].seconds)) * 100
+      : 0;
+
+  const circumference = 2 * Math.PI * 88;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-4 pb-safe">
-      <div className="max-w-md mx-auto space-y-6 pt-8">
-        <div className="relative">
-          <Button
-            variant="ghost"
-            size="icon"
+    <div className="min-h-screen bg-background pt-6 px-5 pb-10">
+      <div className="max-w-md mx-auto space-y-5">
+
+        <div className="flex items-center gap-4 mb-2">
+          <button
             onClick={() => navigate("/")}
-            className="absolute left-0 -top-[30px]"
+            className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition-colors"
           >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div className="text-center space-y-2">
-            <h1 className="text-3xl font-bold" style={{ color: '#ff513a' }}>
-              Create new Timer
-            </h1>
-            <p className="text-muted-foreground">Build and run custom interval timers</p>
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <h1 className="text-2xl font-bold">Create Timer</h1>
+            <p className="text-muted-foreground text-sm">Build a custom interval timer</p>
           </div>
         </div>
 
         {/* Timer Display */}
-        <Card className="p-8 shadow-lg border-2 bg-gradient-to-br from-card to-card/80">
-          <div className="text-center space-y-4">
-            <div className="relative inline-flex items-center justify-center">
-              <svg className="w-48 h-48 transform -rotate-90">
-                <circle
-                  cx="96"
-                  cy="96"
-                  r="88"
-                  stroke="hsl(var(--border))"
-                  strokeWidth="8"
-                  fill="none"
-                />
-                <circle
-                  cx="96"
-                  cy="96"
-                  r="88"
-                  stroke="url(#gradient)"
-                  strokeWidth="8"
-                  fill="none"
-                  strokeDasharray={`${2 * Math.PI * 88}`}
-                  strokeDashoffset={`${2 * Math.PI * 88 * (1 - progress / 100)}`}
-                  className="transition-all duration-1000"
-                  strokeLinecap="round"
-                />
-                <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="hsl(var(--primary))" />
-                    <stop offset="100%" stopColor="hsl(var(--accent))" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-5xl font-bold tabular-nums">
-                  {formatTime(remainingSeconds)}
+        <div className="bg-card rounded-3xl p-8 border border-border flex flex-col items-center">
+          <div className="relative inline-flex items-center justify-center mb-6">
+            <svg className="w-48 h-48 -rotate-90">
+              <circle cx="96" cy="96" r="88" stroke="hsl(var(--border))" strokeWidth="6" fill="none" />
+              <circle
+                cx="96" cy="96" r="88"
+                stroke="hsl(var(--primary))"
+                strokeWidth="6"
+                fill="none"
+                strokeDasharray={circumference}
+                strokeDashoffset={circumference * (1 - progress / 100)}
+                strokeLinecap="round"
+                className="transition-all duration-1000"
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="text-5xl font-bold tabular-nums">{formatTime(remainingSeconds)}</div>
+              {intervals.length > 0 && (
+                <div className="text-sm text-muted-foreground mt-1">
+                  {currentIntervalIndex + 1} / {intervals.length}
                 </div>
-                {intervals.length > 0 && (
-                  <div className="text-sm text-muted-foreground mt-2">
-                    Interval {currentIntervalIndex + 1} of {intervals.length}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {totalRemainingSeconds > 0 && (
-              <div className="text-sm text-muted-foreground">
-                Total remaining: {formatTime(totalRemainingSeconds)}
-              </div>
-            )}
-
-            {/* Controls */}
-            <div className="flex gap-3 justify-center pt-4">
-              <Button
-                size="lg"
-                onClick={isRunning ? pauseTimer : startTimer}
-                className="rounded-full w-16 h-16 p-0 shadow-lg"
-              >
-                {isRunning ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6 ml-1" />}
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={resetTimer}
-                className="rounded-full w-16 h-16 p-0"
-              >
-                <RotateCcw className="h-6 w-6" style={{ color: '#1a1a1a' }} />
-              </Button>
+              )}
             </div>
           </div>
-        </Card>
+
+          {displaySeconds > 0 && (
+            <p className="text-sm text-muted-foreground mb-4">
+              Total: {formatTime(displaySeconds)}
+            </p>
+          )}
+
+          <div className="flex gap-4">
+            <button
+              onClick={isRunning ? () => setIsRunning(false) : startTimer}
+              className="w-16 h-16 rounded-full bg-primary text-background flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
+            >
+              {isRunning ? <Pause className="w-6 h-6" fill="currentColor" /> : <Play className="w-6 h-6 ml-1" fill="currentColor" />}
+            </button>
+            <button
+              onClick={resetTimer}
+              className="w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center hover:bg-border transition-colors"
+            >
+              <RotateCcw className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
 
         {/* Timer Name */}
-        <Card className="p-6 shadow-md">
-          <h3 className="font-semibold mb-4">Timer Name</h3>
-          <Input
+        <div className="bg-card rounded-2xl p-5 border border-border">
+          <label className="text-sm font-semibold text-muted-foreground uppercase tracking-wide block mb-3">Timer Name</label>
+          <input
             type="text"
-            placeholder="e.g., Morning Workout"
+            placeholder="e.g. Morning Workout"
             value={timerName}
             onChange={(e) => setTimerName(e.target.value)}
+            className="w-full bg-muted rounded-xl px-4 py-3 text-foreground placeholder:text-muted-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 text-base"
           />
-        </Card>
+        </div>
 
         {/* Add Interval */}
-        <Card className="p-6 shadow-md">
-          <h3 className="font-semibold mb-4">Add Interval</h3>
-          <div className="flex gap-2">
-            <Input
-              type="number"
+        <div className="bg-card rounded-2xl p-5 border border-border">
+          <label className="text-sm font-semibold text-muted-foreground uppercase tracking-wide block mb-3">Add Interval</label>
+          <div className="flex gap-3 mb-3">
+            <input
+              type="text"
+              inputMode="numeric"
               placeholder="Min"
               value={newMinutes}
-              onChange={(e) => setNewMinutes(e.target.value)}
-              className="text-center"
-              min="0"
+              onChange={(e) => setNewMinutes(e.target.value.replace(/\D/g, ""))}
+              className="flex-1 bg-muted rounded-xl px-4 py-3 text-center text-foreground placeholder:text-muted-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 text-base"
             />
-            <Input
-              type="number"
+            <input
+              type="text"
+              inputMode="numeric"
               placeholder="Sec"
               value={newSeconds}
-              onChange={(e) => setNewSeconds(e.target.value)}
-              className="text-center"
-              min="0"
-              max="59"
+              onChange={(e) => setNewSeconds(e.target.value.replace(/\D/g, ""))}
+              className="flex-1 bg-muted rounded-xl px-4 py-3 text-center text-foreground placeholder:text-muted-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 text-base"
             />
-            <Button onClick={addInterval} size="icon" className="shrink-0">
-              <Plus className="h-4 w-4" />
-            </Button>
           </div>
-        </Card>
+          <button
+            onClick={addInterval}
+            className="w-full h-11 rounded-xl bg-primary text-background font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+          >
+            <Plus className="w-5 h-5" />
+            Add Interval
+          </button>
+        </div>
 
         {/* Intervals List */}
         {intervals.length > 0 && (
-          <Card className="p-6 shadow-md">
-            <h3 className="font-semibold mb-4">Intervals ({intervals.length})</h3>
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
-            >
-              <SortableContext
-                items={intervals.map(i => i.id)}
-                strategy={verticalListSortingStrategy}
-              >
+          <div className="bg-card rounded-2xl p-5 border border-border">
+            <div className="flex items-center justify-between mb-4">
+              <label className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+                Intervals ({intervals.length})
+              </label>
+              {totalSeconds > 0 && (
+                <span className="text-sm text-muted-foreground font-mono">{formatTime(totalSeconds)} total</span>
+              )}
+            </div>
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+              <SortableContext items={intervals.map((i) => i.id)} strategy={verticalListSortingStrategy}>
                 <div className="space-y-2">
                   {intervals.map((interval, index) => (
                     <SortableInterval
@@ -486,26 +372,21 @@ export const IntervalTimer = () => {
                 </div>
               </SortableContext>
             </DndContext>
-            {totalSeconds > 0 && (
-              <div className="mt-4 pt-4 border-t text-sm text-muted-foreground">
-                Total duration: {formatTime(totalSeconds)}
-              </div>
-            )}
-          </Card>
+          </div>
         )}
 
-        {/* Save Timer Button */}
+        {/* Save Button */}
         {intervals.length > 0 && (
-          <Button
+          <button
             onClick={saveTimer}
-            size="lg"
-            className="w-full shadow-lg"
+            className="w-full h-14 rounded-full bg-white text-gray-900 font-semibold text-lg flex items-center justify-center gap-2 hover:bg-white/90 transition-colors"
           >
-            <Save className="mr-2 h-5 w-5" />
+            <Save className="w-5 h-5" />
             Save Timer
-          </Button>
+          </button>
         )}
       </div>
+
     </div>
   );
 };
