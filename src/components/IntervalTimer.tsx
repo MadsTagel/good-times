@@ -19,7 +19,6 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { BottomNav } from "@/pages/Home";
 
 interface Interval {
   id: string;
@@ -238,7 +237,7 @@ export const IntervalTimer = () => {
   const circumference = 2 * Math.PI * 88;
 
   return (
-    <div className="min-h-screen bg-background pb-28 pt-6 px-5">
+    <div className="min-h-screen bg-background pt-6 px-5 pb-10">
       <div className="max-w-md mx-auto space-y-5">
 
         <div className="flex items-center gap-4 mb-2">
@@ -319,20 +318,19 @@ export const IntervalTimer = () => {
           <label className="text-sm font-semibold text-muted-foreground uppercase tracking-wide block mb-3">Add Interval</label>
           <div className="flex gap-3">
             <input
-              type="number"
+              type="text"
+              inputMode="numeric"
               placeholder="Min"
               value={newMinutes}
-              onChange={(e) => setNewMinutes(e.target.value)}
-              min="0"
+              onChange={(e) => setNewMinutes(e.target.value.replace(/\D/g, ""))}
               className="flex-1 bg-muted rounded-xl px-4 py-3 text-center text-foreground placeholder:text-muted-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 text-base"
             />
             <input
-              type="number"
+              type="text"
+              inputMode="numeric"
               placeholder="Sec"
               value={newSeconds}
-              onChange={(e) => setNewSeconds(e.target.value)}
-              min="0"
-              max="59"
+              onChange={(e) => setNewSeconds(e.target.value.replace(/\D/g, ""))}
               className="flex-1 bg-muted rounded-xl px-4 py-3 text-center text-foreground placeholder:text-muted-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 text-base"
             />
             <button
@@ -386,7 +384,6 @@ export const IntervalTimer = () => {
         )}
       </div>
 
-      <BottomNav active="create" />
     </div>
   );
 };

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Clock, Trash2, Play, Pencil, ArrowLeft } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import { BottomNav } from "./Home";
 
 interface SavedTimer {
   id: string;
@@ -45,7 +44,7 @@ const SavedTimers = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-28 pt-6 px-5">
+    <div className="min-h-screen bg-background pt-6 px-5 pb-10">
       <div className="max-w-lg mx-auto">
 
         <div className="flex items-center gap-4 mb-8">
@@ -123,7 +122,6 @@ const SavedTimers = () => {
         )}
       </div>
 
-      <BottomNav active="timers" />
     </div>
   );
 };
