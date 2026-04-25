@@ -316,7 +316,7 @@ export const IntervalTimer = () => {
         {/* Add Interval */}
         <div className="bg-card rounded-2xl p-5 border border-border">
           <label className="text-sm font-semibold text-muted-foreground uppercase tracking-wide block mb-3">Add Interval</label>
-          <div className="flex gap-3">
+          <div className="flex gap-3 mb-3">
             <input
               type="text"
               inputMode="numeric"
@@ -333,13 +333,14 @@ export const IntervalTimer = () => {
               onChange={(e) => setNewSeconds(e.target.value.replace(/\D/g, ""))}
               className="flex-1 bg-muted rounded-xl px-4 py-3 text-center text-foreground placeholder:text-muted-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 text-base"
             />
-            <button
-              onClick={addInterval}
-              className="w-12 h-12 rounded-full bg-primary text-background flex items-center justify-center hover:opacity-90 transition-opacity shrink-0"
-            >
-              <Plus className="w-5 h-5" />
-            </button>
           </div>
+          <button
+            onClick={addInterval}
+            className="w-full h-11 rounded-xl bg-primary text-background font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+          >
+            <Plus className="w-5 h-5" />
+            Add Interval
+          </button>
         </div>
 
         {/* Intervals List */}
