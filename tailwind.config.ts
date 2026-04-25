@@ -14,7 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Karla', 'sans-serif'],
+        sans: ['Nunito', 'sans-serif'],
+        serif: ['Lora', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",

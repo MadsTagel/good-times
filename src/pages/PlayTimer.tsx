@@ -128,7 +128,7 @@ const PlayTimer = () => {
         </div>
 
         <div
-          className="text-[9rem] leading-none font-bold tabular-nums"
+          className="font-sans text-[9rem] leading-none font-bold tabular-nums"
           style={{ color: isComplete ? accentColor : "hsl(var(--foreground))" }}
         >
           {isComplete ? "DONE" : formatTime(remainingSeconds)}

@@ -55,7 +55,7 @@ const SavedTimers = () => {
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold">My Timers</h1>
+            <h1 className="font-sans text-2xl font-bold">My Timers</h1>
             <p className="text-muted-foreground text-sm">Your saved interval timers</p>
           </div>
         </div>
@@ -80,7 +80,7 @@ const SavedTimers = () => {
               <div key={timer.id} className="bg-card rounded-2xl p-5 border border-border">
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold">{timer.name}</h3>
+                    <h3 className="font-sans text-lg font-semibold">{timer.name}</h3>
                     <p className="text-sm text-muted-foreground mt-0.5">
                       {timer.intervals.length} intervals · {formatTotalTime(timer.intervals)}
                     </p>

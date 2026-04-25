@@ -250,7 +250,7 @@ export const IntervalTimer = () => {
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold">Create Timer</h1>
+            <h1 className="font-sans text-2xl font-bold">Create Timer</h1>
             <p className="text-muted-foreground text-sm">Build a custom interval timer</p>
           </div>
         </div>
@@ -272,7 +272,7 @@ export const IntervalTimer = () => {
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <div className="text-5xl font-bold tabular-nums">{formatTime(remainingSeconds)}</div>
+              <div className="font-sans text-5xl font-bold tabular-nums">{formatTime(remainingSeconds)}</div>
               {intervals.length > 0 && (
                 <div className="text-sm text-muted-foreground mt-1">
                   {currentIntervalIndex + 1} / {intervals.length}

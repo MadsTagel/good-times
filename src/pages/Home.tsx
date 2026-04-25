@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 gap-10">
       <div className="text-center">
-        <h1 className="text-6xl font-black tracking-tight mb-3">GOOD TIMES</h1>
+        <h1 className="font-sans text-6xl font-black tracking-tight mb-3">GOOD TIMES</h1>
         <p className="text-muted-foreground text-lg">Build and run custom interval timers</p>
       </div>
 
