@@ -8,6 +8,7 @@ import CreateTimer from "./pages/CreateTimer";
 import SavedTimers from "./pages/SavedTimers";
 import PlayTimer from "./pages/PlayTimer";
 import NotFound from "./pages/NotFound";
+import RelevanceMap from "./pages/RelevanceMap";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/create" element={<CreateTimer />} />
           <Route path="/timers" element={<SavedTimers />} />
           <Route path="/play" element={<PlayTimer />} />
+          <Route path="/relevance-map" element={<RelevanceMap />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
