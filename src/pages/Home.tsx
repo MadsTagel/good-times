@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Plus, Clock } from "lucide-react";
+import { Plus, Clock, Map } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,6 +25,13 @@ const Home = () => {
         >
           <Clock className="w-5 h-5" />
           My Timers
+        </button>
+        <button
+          onClick={() => navigate("/relevance-map")}
+          className="w-full h-14 rounded-full border-2 border-white/25 text-white font-bold text-lg flex items-center justify-center gap-2 hover:border-white/40 transition-colors"
+        >
+          <Map className="w-5 h-5" />
+          AI Relevance Map
         </button>
       </div>
     </div>
