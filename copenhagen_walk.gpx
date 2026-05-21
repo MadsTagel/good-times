@@ -1,0 +1,567 @@
+<?xml version="1.0"?>
+<gpx
+ version="1.0"
+ creator="ExpertGPS 1.1 - https://www.topografix.com"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="http://www.topografix.com/GPX/1/0"
+ xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+<time>2026-05-21T10:00:00Z</time>
+<bounds minlat="55.673600" minlon="12.568100" maxlat="55.682900" maxlon="12.595400"/>
+<wpt lat="55.676100" lon="12.568300">
+ <ele>6.096000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>RADHUSPLADSEN</name>
+ <cmt>COPENHAGEN CITY HALL</cmt>
+ <desc><![CDATA[Copenhagen City Hall Square]]></desc>
+ <sym>Parking Area</sym>
+ <type><![CDATA[Parking]]></type>
+</wpt>
+<wpt lat="55.673600" lon="12.568100">
+ <ele>5.000000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>TIVOLI</name>
+ <cmt>TIVOLI GARDENS</cmt>
+ <desc><![CDATA[Tivoli Gardens Main Entrance]]></desc>
+ <sym>Amusement Park</sym>
+ <type><![CDATA[Attraction]]></type>
+</wpt>
+<wpt lat="55.676200" lon="12.569900">
+ <ele>5.791200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1001</name>
+ <desc><![CDATA[1001]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.676300" lon="12.571500">
+ <ele>5.486400</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1002</name>
+ <desc><![CDATA[1002]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.676400" lon="12.572800">
+ <ele>5.181600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1003</name>
+ <desc><![CDATA[1003]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.676500" lon="12.574000">
+ <ele>4.267200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>GAMMELTORV</name>
+ <cmt>GAMMELTORV</cmt>
+ <desc><![CDATA[Gammeltorv - Old Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</wpt>
+<wpt lat="55.676500" lon="12.575800">
+ <ele>4.267200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1004</name>
+ <desc><![CDATA[1004]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.676800" lon="12.576300">
+ <ele>4.115200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1005</name>
+ <desc><![CDATA[1005]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.677200" lon="12.577700">
+ <ele>3.962400</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1006</name>
+ <desc><![CDATA[1006]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.677600" lon="12.579700">
+ <ele>3.962400</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>STORKSPRING</name>
+ <cmt>STORK FOUNTAIN</cmt>
+ <desc><![CDATA[Stork Fountain, Amagertorv]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Landmark]]></type>
+</wpt>
+<wpt lat="55.677800" lon="12.581000">
+ <ele>3.657600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1007</name>
+ <desc><![CDATA[1007]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.677900" lon="12.582300">
+ <ele>3.352800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>HOJBROPLADS</name>
+ <cmt>HOJBRO PLADS</cmt>
+ <desc><![CDATA[Højbro Plads - High Bridge Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</wpt>
+<wpt lat="55.678400" lon="12.581500">
+ <ele>2.438400</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>GAMMELSTRAND</name>
+ <cmt>GAMMEL STRAND</cmt>
+ <desc><![CDATA[Gammel Strand - Old Harbour]]></desc>
+ <sym>Fishing Area</sym>
+ <type><![CDATA[Harbour]]></type>
+</wpt>
+<wpt lat="55.675800" lon="12.580200">
+ <ele>7.000000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>CHRISTIANSBORGDEAD</name>
+ <desc><![CDATA[Dead End]]></desc>
+ <sym>Danger Area</sym>
+ <type><![CDATA[Dead End]]></type>
+</wpt>
+<wpt lat="55.678900" lon="12.583000">
+ <ele>3.048000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1008</name>
+ <desc><![CDATA[1008]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.679300" lon="12.584500">
+ <ele>3.048000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1009</name>
+ <desc><![CDATA[1009]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.679800" lon="12.585700">
+ <ele>3.048000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>KONGSNYTORV</name>
+ <cmt>KONGENS NYTORV</cmt>
+ <desc><![CDATA[Kongens Nytorv - King's New Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</wpt>
+<wpt lat="55.679800" lon="12.588800">
+ <ele>2.743200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1010</name>
+ <desc><![CDATA[1010]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.679900" lon="12.591800">
+ <ele>2.133600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>NYHAVN</name>
+ <cmt>NYHAVN CANAL</cmt>
+ <desc><![CDATA[Nyhavn - New Harbour]]></desc>
+ <sym>Fishing Area</sym>
+ <type><![CDATA[Harbour]]></type>
+</wpt>
+<wpt lat="55.679600" lon="12.593500">
+ <ele>1.828800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1011</name>
+ <desc><![CDATA[1011]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.678300" lon="12.595400">
+ <ele>1.524000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>NYHAVN_END</name>
+ <cmt>NYHAVN OUTER END</cmt>
+ <desc><![CDATA[Nyhavn Outer Harbour End]]></desc>
+ <sym>Fishing Area</sym>
+ <type><![CDATA[Harbour]]></type>
+</wpt>
+<wpt lat="55.678100" lon="12.593200">
+ <ele>1.828800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1012</name>
+ <desc><![CDATA[1012]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.678500" lon="12.590000">
+ <ele>2.133600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1013</name>
+ <desc><![CDATA[1013]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.680600" lon="12.584000">
+ <ele>3.657600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1014</name>
+ <desc><![CDATA[1014]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.681300" lon="12.581900">
+ <ele>4.267200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1015</name>
+ <desc><![CDATA[1015]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.681900" lon="12.578500">
+ <ele>4.876800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1016</name>
+ <desc><![CDATA[1016]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.682100" lon="12.574400">
+ <ele>5.182000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>KULTORVET</name>
+ <cmt>KULTORVET</cmt>
+ <desc><![CDATA[Kultorvet Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</wpt>
+<wpt lat="55.682900" lon="12.575500">
+ <ele>36.576000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>RUNDETAARN</name>
+ <cmt>ROUND TOWER</cmt>
+ <desc><![CDATA[Rundetårn - Round Tower]]></desc>
+ <sym>Tall Tower</sym>
+ <type><![CDATA[Tower]]></type>
+</wpt>
+<wpt lat="55.681000" lon="12.575100">
+ <ele>4.876800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1017</name>
+ <desc><![CDATA[1017]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.679400" lon="12.575500">
+ <ele>4.572000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1018</name>
+ <desc><![CDATA[1018]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.677800" lon="12.575800">
+ <ele>4.267200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1019</name>
+ <desc><![CDATA[1019]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</wpt>
+<wpt lat="55.675800" lon="12.580200">
+ <ele>7.000000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>CHRISTIANSBORG</name>
+ <cmt>CHRISTIANSBORG PALACE</cmt>
+ <desc><![CDATA[Christiansborg Palace]]></desc>
+ <sym>Museum</sym>
+ <type><![CDATA[Palace]]></type>
+</wpt>
+<rte>
+ <name>RADHUSPLADSEN</name>
+ <desc><![CDATA[Copenhagen City Walk]]></desc>
+ <number>1</number>
+<rtept lat="55.676100" lon="12.568300">
+ <ele>6.096000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>RADHUSPLADSEN</name>
+ <cmt>COPENHAGEN CITY HALL</cmt>
+ <desc><![CDATA[Copenhagen City Hall Square]]></desc>
+ <sym>Parking Area</sym>
+ <type><![CDATA[Parking]]></type>
+</rtept>
+<rtept lat="55.676200" lon="12.569900">
+ <ele>5.791200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1001</name>
+ <desc><![CDATA[1001]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.676300" lon="12.571500">
+ <ele>5.486400</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1002</name>
+ <desc><![CDATA[1002]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.676400" lon="12.572800">
+ <ele>5.181600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1003</name>
+ <desc><![CDATA[1003]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.676500" lon="12.574000">
+ <ele>4.267200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>GAMMELTORV</name>
+ <cmt>GAMMELTORV</cmt>
+ <desc><![CDATA[Gammeltorv - Old Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</rtept>
+<rtept lat="55.676500" lon="12.575800">
+ <ele>4.267200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1004</name>
+ <desc><![CDATA[1004]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.676800" lon="12.576300">
+ <ele>4.115200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1005</name>
+ <desc><![CDATA[1005]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.677200" lon="12.577700">
+ <ele>3.962400</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1006</name>
+ <desc><![CDATA[1006]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.677600" lon="12.579700">
+ <ele>3.962400</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>STORKSPRING</name>
+ <cmt>STORK FOUNTAIN</cmt>
+ <desc><![CDATA[Stork Fountain, Amagertorv]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Landmark]]></type>
+</rtept>
+<rtept lat="55.677800" lon="12.581000">
+ <ele>3.657600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1007</name>
+ <desc><![CDATA[1007]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.677900" lon="12.582300">
+ <ele>3.352800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>HOJBROPLADS</name>
+ <cmt>HOJBRO PLADS</cmt>
+ <desc><![CDATA[Højbro Plads - High Bridge Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</rtept>
+<rtept lat="55.678400" lon="12.581500">
+ <ele>2.438400</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>GAMMELSTRAND</name>
+ <cmt>GAMMEL STRAND</cmt>
+ <desc><![CDATA[Gammel Strand - Old Harbour]]></desc>
+ <sym>Fishing Area</sym>
+ <type><![CDATA[Harbour]]></type>
+</rtept>
+<rtept lat="55.678900" lon="12.583000">
+ <ele>3.048000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1008</name>
+ <desc><![CDATA[1008]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.679300" lon="12.584500">
+ <ele>3.048000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1009</name>
+ <desc><![CDATA[1009]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.679800" lon="12.585700">
+ <ele>3.048000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>KONGSNYTORV</name>
+ <cmt>KONGENS NYTORV</cmt>
+ <desc><![CDATA[Kongens Nytorv - King's New Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</rtept>
+<rtept lat="55.679800" lon="12.588800">
+ <ele>2.743200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1010</name>
+ <desc><![CDATA[1010]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.679900" lon="12.591800">
+ <ele>2.133600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>NYHAVN</name>
+ <cmt>NYHAVN CANAL</cmt>
+ <desc><![CDATA[Nyhavn - New Harbour]]></desc>
+ <sym>Fishing Area</sym>
+ <type><![CDATA[Harbour]]></type>
+</rtept>
+<rtept lat="55.679600" lon="12.593500">
+ <ele>1.828800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1011</name>
+ <desc><![CDATA[1011]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.678300" lon="12.595400">
+ <ele>1.524000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>NYHAVN_END</name>
+ <cmt>NYHAVN OUTER END</cmt>
+ <desc><![CDATA[Nyhavn Outer Harbour End]]></desc>
+ <sym>Fishing Area</sym>
+ <type><![CDATA[Harbour]]></type>
+</rtept>
+<rtept lat="55.678100" lon="12.593200">
+ <ele>1.828800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1012</name>
+ <desc><![CDATA[1012]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.678500" lon="12.590000">
+ <ele>2.133600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1013</name>
+ <desc><![CDATA[1013]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.679800" lon="12.585700">
+ <ele>3.048000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>KONGSNYTORV</name>
+ <cmt>KONGENS NYTORV</cmt>
+ <desc><![CDATA[Kongens Nytorv - King's New Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</rtept>
+<rtept lat="55.680600" lon="12.584000">
+ <ele>3.657600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1014</name>
+ <desc><![CDATA[1014]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.681300" lon="12.581900">
+ <ele>4.267200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1015</name>
+ <desc><![CDATA[1015]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.681900" lon="12.578500">
+ <ele>4.876800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1016</name>
+ <desc><![CDATA[1016]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.682100" lon="12.574400">
+ <ele>5.182000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>KULTORVET</name>
+ <cmt>KULTORVET</cmt>
+ <desc><![CDATA[Kultorvet Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</rtept>
+<rtept lat="55.681000" lon="12.575100">
+ <ele>4.876800</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1017</name>
+ <desc><![CDATA[1017]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.679400" lon="12.575500">
+ <ele>4.572000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1018</name>
+ <desc><![CDATA[1018]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.677800" lon="12.575800">
+ <ele>4.267200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1019</name>
+ <desc><![CDATA[1019]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.676500" lon="12.574000">
+ <ele>4.267200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>GAMMELTORV</name>
+ <cmt>GAMMELTORV</cmt>
+ <desc><![CDATA[Gammeltorv - Old Square]]></desc>
+ <sym>City (Large)</sym>
+ <type><![CDATA[Square]]></type>
+</rtept>
+<rtept lat="55.676400" lon="12.572800">
+ <ele>5.181600</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1003</name>
+ <desc><![CDATA[1003]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.676300" lon="12.571500">
+ <ele>5.486400</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1002</name>
+ <desc><![CDATA[1002]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.676200" lon="12.569900">
+ <ele>5.791200</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>1001</name>
+ <desc><![CDATA[1001]]></desc>
+ <sym>Dot</sym>
+ <type><![CDATA[Intersection]]></type>
+</rtept>
+<rtept lat="55.676100" lon="12.568300">
+ <ele>6.096000</ele>
+ <time>2026-05-21T10:00:00Z</time>
+ <name>RADHUSPLADSEN</name>
+ <cmt>COPENHAGEN CITY HALL</cmt>
+ <desc><![CDATA[Copenhagen City Hall Square]]></desc>
+ <sym>Parking Area</sym>
+ <type><![CDATA[Parking]]></type>
+</rtept>
+</rte>
+</gpx>
